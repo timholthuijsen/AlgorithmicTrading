@@ -1,20 +1,7 @@
 import requests, json
 import alpaca_trade_api as tradeapi
+from keys import *
 
-#Setting all global keys and urls
-paperkey = '<your paper key>'
-papersecret = '<your secret key>'
-paperurl = '<your url>'
-
-
-realkey = '<your real key>'
-realsecret ='<your secret key>'
-realurl = '<your url>'
-
-#switch for real when you want to trade with real money
-APCA_API_KEY_ID= paperkey
-APCA_API_SECRET_KEY=papersecret
-APCA_API_BASE_URL=paperurl
 
 ACCOUNT_URL="{}/v2/account".format(APCA_API_BASE_URL)
 ORDERS_URL = "{}/v2/orders".format(APCA_API_BASE_URL)
