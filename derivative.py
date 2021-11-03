@@ -3,9 +3,9 @@ import copy
 
 
 # Create a percentage return dataframe called return_df
-def returns(tickers = tickers[:20], interval = '1mo'):
+def returns(tickers = tickers[:20], interval = '1mo', delta = 3650):
     ohlc_mon = {} # directory with ohlc value for each stock            
-    start = dt.datetime.today()-dt.timedelta(3650)
+    start = dt.datetime.today()-dt.timedelta(delta)
     end = dt.datetime.today()
     
     # looping over tickers and creating a dataframe with close prices
@@ -25,5 +25,17 @@ def returns(tickers = tickers[:20], interval = '1mo'):
         print("calculating monthly return for ",ticker)
         ohlc_dict[ticker]["mon_ret"] = ohlc_dict[ticker]["Adj Close"].pct_change()
         return_df[ticker] = ohlc_dict[ticker]["mon_ret"]
-    return_df.dropna(inplace=True)
+    #return_df.dropna(inplace=True)
     return return_df
+
+#returndata = returns(tickers = tickers[:35], interval = '1d', delta = 365)
+
+
+#made specifically to write returns pct change to csv
+def csvwriter(number = len(tickers)):
+    data = returns(tickers = tickers[:number], interval = '1d', delta = 3650)
+    print(data.shape)
+    data.to_csv('changedata.csv',date_format='%Y-%m-%d')
+    return data.shape
+    
+    
