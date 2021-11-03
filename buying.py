@@ -2,21 +2,9 @@ import alpaca_trade_api as tradeapi
 import requests, json
 from config import *
 from getdata import *
+from datetime import datetime
+from keys import *
 
-#Setting all global keys and urls
-paperkey = '<your paper key>'
-papersecret = '<your secret key>'
-paperurl = '<your url>'
-
-
-realkey = '<your real key>'
-realsecret = '<your secret key'
-realurl = '<your url>'
-
-#switch to real when trading with real money
-APCA_API_KEY_ID= paperkey
-APCA_API_SECRET_KEY=papersecret
-APCA_API_BASE_URL=paperurl
 
 ACCOUNT_URL="{}/v2/account".format(APCA_API_BASE_URL)
 ORDERS_URL = "{}/v2/orders".format(APCA_API_BASE_URL)
@@ -54,7 +42,7 @@ def create_order(symbol, qty, side, typee, time_in_force, stop, loss):
         }
     }
     r = requests.post(ORDERS_URL, json=data, headers=HEADERS)
-    #print(r.content)
+    print(r.content)
     return json.loads(r.content)
 
 def get_orders():
@@ -71,7 +59,9 @@ def sell_order(symbol, qty, typee, time_in_force):
 
     }
     r = requests.post(ORDERS_URL, json=data, headers=HEADERS)
-    #print(r.content)
+    print(r.content)
+    history = str(qty) + ' '+ symbol + ' sold at ' + str(datetime.now())
+    write(history)
     return json.loads(r.content)
 
 #response = create_order("AAPL",100,'buy','market','gtc', 152, 140)
@@ -88,7 +78,11 @@ def live_sells(ticker, goal, qty, serious = False, refresh = 5):
             sell_order(ticker,qty,'market','gtc')
 
             
-
+def write(text):
+    historyfile = open('OrderHistory.txt', 'a')
+    historyfile.write('\n')
+    historyfile.write(text)
+    historyfile.close()
 
 #live_sells('AAPL',150.63, 50, serious = True, refresh = 2)
 

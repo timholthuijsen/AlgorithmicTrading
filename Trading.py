@@ -1,10 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Nov  3 04:12:06 2021
-
-@author: timho
-"""
-
+from keys import *
 from buying import *
 from yfinance_multiple_tickers import *
 
