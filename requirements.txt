@@ -1,0 +1,2 @@
+yfinance
+alpaca_trade_api
