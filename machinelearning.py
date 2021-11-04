@@ -4,6 +4,7 @@ import pandas as pd
 from yfinance_multiple_tickers import *
 import numpy as np
 from buying import *
+from Trading import *
 
 
 data = pd.read_csv("changedata.csv")
@@ -107,7 +108,21 @@ def predictor(time=2515, serious = False):
     if serious == False:
         return profits
 
-predictor()
+
+#buy a num of the best stocks
+def buy_best(num_of_stocks, qty = 1):
+    print('We want to buy the best ', num_of_stocks, ' stocks')
+    prediction = predictor()
+    worthystocks = []
+    for i in range(num_of_stocks):
+        max_key = max(prediction, key = prediction.get)
+        max_value = prediction[max_key]
+        print(max_key, ' is expected to rise ',max_value, ' today')
+        worthystocks.append(max_key)
+        del(prediction[max_key])
+    print('worthy stocks are: ', worthystocks)
+    buyer(worthystocks, qty)
+    
 
 
 
