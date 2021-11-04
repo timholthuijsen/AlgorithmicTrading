@@ -61,6 +61,7 @@ def buy_order(symbol, qty, typee, time_in_force):
     r = requests.post(ORDERS_URL, json=data, headers=HEADERS)
     print(r.content)
     history = str(qty) + ' '+ symbol + ' bought at ' + str(datetime.now())
+    print(history)
     write(history)
     return json.loads(r.content)
 
@@ -76,6 +77,7 @@ def sell_order(symbol, qty, typee, time_in_force):
     r = requests.post(ORDERS_URL, json=data, headers=HEADERS)
     print(r.content)
     history = str(qty) + ' '+ symbol + ' sold at ' + str(datetime.now())
+    print(history)
     write(history)
     return json.loads(r.content)
 

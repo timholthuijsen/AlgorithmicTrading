@@ -82,20 +82,30 @@ def compare():
 
 
 
-def predictor(time=2515, serious = False, qty = 1):  
+def predictor(time=2515, serious = False):  
+    #Get modern data
     current = filleddata[1:time][column_names].transpose()
+    #predict values for today
     today = model.predict(current)
     profits = {}
+    #get them all in a dict
     for name, profit in zip(column_names,today):
         profits[name] = profit
+    #get the highest key and value
     max_key = max(profits, key = profits.get)
     max_value = profits[max_key]
     print('the model predicts that ', max_key, "is going to increase by ", max_value, ' today')
-    print('we should buy ',max_key, ' now!')
+    print('we should buy ',max_key, '!!')
+    #start buying highest key
     if serious:
-        buy_order(max_key,qty,'market','gtc')
-        
-    return profits
+        proceed = input("Do you wish to buy this stock now?  (yes/no) ")
+        if proceed == 'yes':
+            qty = int(input("how many do you wish to buy? "))
+            if isinstance(qty, int):
+                print('attempting to buy ',qty,' ', max_key)
+                buy_order(max_key,qty,'market','gtc')
+    if serious == False:
+        return profits
 
 predictor()
 
