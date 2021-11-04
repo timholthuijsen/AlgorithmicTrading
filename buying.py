@@ -49,6 +49,21 @@ def get_orders():
     r=requests.get(ORDERS_URL,headers=HEADERS)
     return json.loads(r.content)
 
+def buy_order(symbol, qty, typee, time_in_force):
+    data = {
+        "symbol" : symbol,
+        "qty" : qty,
+        "side": 'buy',
+        "type": typee,
+        "time_in_force":time_in_force,
+
+    }
+    r = requests.post(ORDERS_URL, json=data, headers=HEADERS)
+    print(r.content)
+    history = str(qty) + ' '+ symbol + ' bought at ' + str(datetime.now())
+    write(history)
+    return json.loads(r.content)
+
 def sell_order(symbol, qty, typee, time_in_force):
     data = {
         "symbol" : symbol,
