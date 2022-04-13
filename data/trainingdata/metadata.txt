@@ -1,0 +1,16 @@
+A dataset for predicting Google stock prices based on a number of different indicators.
+
+The X csv's include the estimators used to predict the 5d_close_future_pct in the Y data. 
+The data is split in a Train and a Test set.
+
+Feature explanations:
+5d_close_future_pct: What we are trying to predict: the percentage price change over the next 5 days. If 5d_close_future_pct is 1 on Monday, that means price will have increased by 1% on Friday.
+
+Ma: Moving average. All Ma indicators include a number, indicating for how long the Moving Average period is. For instance, Ma14 contains the average price for the last 14 days. 
+
+RSI: Relative strength index. A value moving between 0 and 100, which indicates whether a stock is currently being over- or under-valued in the allotted time period. 
+*Note:* RSI has shown to be one of the most important values in predicting price change. If RSI is high this means the stock is being overvalued and has a higher chance of price decrease.
+
+Volume_1d_change: the proportinal change in the amount the stock is being traded as opposed to the day before. -0.5 means the stock is being traded 50% less than Yesterday
+
+lag_x: the price x days earlier. Can be used by the model to get an estimation of the recent price (changes) of the stock.  
