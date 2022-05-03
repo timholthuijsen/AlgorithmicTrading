@@ -29,7 +29,15 @@ feature_names.extend(price_column)
 new_features = []
 
 for feature in feature_names:
-    for i in range(1,21):
+    for i in range(1,5):
+        string = feature+'lag'+str(i)
+        print(string)
+        print(feature)
+        stock_data[string] = stock_data[feature].shift(i)
+        new_features.append(string)
+
+for feature in feature_names:
+    for i in range(5,21,5):
         string = feature+'lag'+str(i)
         print(string)
         print(feature)
@@ -80,9 +88,14 @@ X_train = X_train.replace([np.inf, -np.inf], 0).dropna(axis=0)
 
 
 def csv_writer(data, filename):
-    data.to_csv(filename, date_format = '%Y-%m-%d')
+    data.to_csv(filename)
+    print('wrote ', filename, 'to csv')
 
-csv_writer(X_train, 'data/trainingdata/extensive_x_train.csv')
-csv_writer(y_train, 'data/trainingdata/5d_y_train.csv')
-csv_writer(X_test, 'data/trainingdata/extensive_x_test.csv')
-csv_writer(y_test, 'data/trainingdata/5d_y_test.csv')
+# csv_writer(X_train, 'data/trainingdata/extensive_x_train.csv')
+# csv_writer(y_train, 'data/trainingdata/5d_y_train.csv')
+# csv_writer(X_test, 'data/trainingdata/extensive_x_test.csv')
+# csv_writer(y_test, 'data/trainingdata/5d_y_test.csv')
+# csv_writer(stock_data, 'stock_data.csv')
+
+print(stock_data.shape)
+

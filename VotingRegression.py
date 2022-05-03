@@ -33,16 +33,11 @@ reg3 = AdaBoostRegressor()
 rf_model = VotingRegressor(estimators=[('gb', reg1), ('rf', reg2), ('ad', reg3)])
 # ereg.fit(X, y)
 
+#in case you want to take just the random forest regressor
 # rf_model = reg2
 
 
 
-
-
-
-# rf_model = AdaBoostRegressor()
-# rf_model = GradientBoostingRegressor(n_estimators=100, learning_rate=0.1, max_depth=1, random_state=0)
-# rf_model = RandomForestRegressor(n_estimators=200, max_depth=3, max_features=4, random_state=42)
 rf_model.fit(X_train, y_train)
 
 y_pred = rf_model.predict(X_test)
